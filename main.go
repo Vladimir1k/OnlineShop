@@ -6,6 +6,7 @@ import (
 	_ "github.com/lib/pq"
 	"log"
 	"net/http"
+	"strings"
 )
 
 func main() {
@@ -26,5 +27,20 @@ func main() {
 	log.Println("Запуск веб-сервера на http://127.0.0.1:4000")
 	err := http.ListenAndServe(":4000", mux)
 	log.Fatal(err)
+}
 
+func Concat(str []string) string {
+	result := ""
+	for _, v := range str {
+		result += v
+	}
+	return result
+}
+
+func Concat2(str []string) string {
+	var sb strings.Builder
+	for _, v := range str {
+		sb.WriteString(v)
+	}
+	return sb.String()
 }
