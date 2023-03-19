@@ -44,3 +44,13 @@ func Concat2(str []string) string {
 	}
 	return sb.String()
 }
+
+func Concat3(str []string) string {
+	var ba = make([]byte, 30, 30)
+	for _, v := range str {
+		for _, b := range v {
+			ba = append(ba, byte(b))
+		}
+	}
+	return string(ba)
+}

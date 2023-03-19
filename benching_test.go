@@ -19,3 +19,10 @@ func BenchmarkСoncat2(b *testing.B) {
 		Concat2(arr)
 	}
 }
+
+func BenchmarkСoncat3(b *testing.B) {
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		Concat3(arr)
+	}
+}
