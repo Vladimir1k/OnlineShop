@@ -2,13 +2,11 @@
    Выполнил все sql запросы(они ниже),
    по поводу джоинов - учил такое в универе, подзабыл,
    спасибо что подсказали слабую сторону, на выходных подтянул эти знания.
-
    Почитал о транзакциях, через IDE локальные бд только создавал,
    когда не пишешь на чистом sql, этим не заморачиваешься, но
    теперь знаю что транзакция это набор команд и они или все доходят,
    или ни одной - если что то пойдет не так.
    Почитал о пуле подключений, commit, rollback.
-
    P.S. Ещё добавил третий метод конкатенации через срез байтов, в репозитории обновил.
    Бенчмарк показывает что так быстрее, но не так быстро как использование метода strings.Builder
     И вспомнил за лок и анлок горутин через мьютекс, не знаю почему зациклился на вейт груп, первое техническое
@@ -49,5 +47,55 @@ FROM buyers b
 GROUP BY b.id
 HAVING SUM(p.price * o.quantity) > 500
 ORDER BY orders_sum DESC;
+
+
+create database postgres
+
+create table buyers
+(
+    id integer generated always as identity
+    constraint buyer_pkey
+    primary key,
+    name varchar(255),
+    phone varchar(26),
+    address varchar(255)
+);
+
+create table sellers
+(
+    id integer generated always as identity
+    constraint seller_pkey
+    primary key,
+    name varchar(255),
+    phone varchar(26)
+);
+
+create table products2
+(
+    id integer generated always as identity
+    constraint product_pkey
+    primary key,
+    name varchar,
+    description varchar,
+    price double precision,
+    id_seller integer
+    constraint product_id_seller_fkey
+    references sellers
+);
+
+create table orders
+(
+    id integer generated always as identity
+    constraint shop_order_pkey
+    primary key,
+    buyer_id integer
+    constraint orders_bayer_id_fkey
+    references buyers,
+    product_id integer
+    constraint orders_product_id_fkey
+    references products,
+    quantity integer
+);
+
 
 
